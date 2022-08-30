@@ -5,9 +5,7 @@ import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import './styles/index.scss';
 
-const container = document.getElementById('root') as HTMLElement;
-
-const root = createRoot(container);
+const root = createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <Router>

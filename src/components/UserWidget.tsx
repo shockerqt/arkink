@@ -1,21 +1,22 @@
+import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import { User } from '../App';
 import { DiscordIcon } from '../utils/icons';
-
 import './UserWidget.scss';
 import DefaultAvatar from '../static/img/default_avatar.png';
-import { useEffect, useRef, useState } from 'react';
 
 const baseUrl = 'https://cdn.discordapp.com/';
-const loginUrl = 'https://discord.com/api/oauth2/authorize?client_id=1011913636907864154&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=token&scope=identify';
+const loginUrl = 'http://localhost:3001/api/auth';
 
 const UserWidget = ({ user, setUser }: {
   user: User | undefined,
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>,
 }) => {
-
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(true);
   const widgetRef = useRef<HTMLDivElement>(null);
+
 
   const logout = () => {
     localStorage.removeItem('access_token');

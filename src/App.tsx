@@ -1,7 +1,8 @@
-import { lazy, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { lazy, useEffect, useState } from 'react';
+import { Route, Routes, useSearchParams } from 'react-router-dom';
 
 import Layout from './components/Layout';
+import { fetchUser, login } from './utils/api';
 
 const Home = lazy(() => import(/* webpackChunkName: "home" */ './routes/Home'));
 
@@ -16,6 +17,23 @@ export interface User {
 
 const App = () => {
   const [user, setUser] = useState<User>();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const code = searchParams.get('code');
+
+    if (code) {
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.delete('code');
+      setSearchParams(newSearchParams);
+
+      login(code, (userData) => setUser(userData));
+    } else if (!user) {
+      fetchUser((userData) => setUser(userData));
+    }
+
+  }, [searchParams]);
+
 
   return (
     <Routes>
