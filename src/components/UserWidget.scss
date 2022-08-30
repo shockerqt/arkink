@@ -1,0 +1,108 @@
+
+.UserWidget {
+  position: relative;
+  float: right;
+  right: 40px;
+  top: 30px;
+
+  .discordPhoto {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .discordLoginButton {
+    background-color: #7289DA;
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    gap: 8px;
+
+    svg {
+      height: 16px;
+    }
+  }
+
+  .discordMenu {
+    width: 300px;
+    position: absolute;
+    border-radius: 8px;
+    overflow: hidden;
+    top: 62px;
+    right: -12px;
+    background-color: #151417;
+    transition: 0.1s ease-out all;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+
+    &.hidden {
+      opacity: 0;
+      scale: 0.9;
+      transform-origin: 100% 0;
+      transition: 0.1s ease-in all;
+    }
+
+    .topBanner {
+      background-color: #5865F2;
+      width: 300px;
+      height: 100px;
+      overflow: hidden;
+    }
+
+    .menuPhoto {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      background-color: inherit;
+      top: 55px;
+      left: 15px;
+      border-radius: 50%;
+      overflow: hidden;
+      outline: #151417 solid 6px;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .menuBody {
+      padding: 60px 12px 18px 12px;
+      display: grid;
+      gap: 12px;
+      
+      .menuUsername {
+        color: grey;
+
+        b {
+          font-size: 18px;
+          color: white;
+        }
+      }
+
+      .menuButton {
+        display: block;
+        border: none;
+        padding: 12px;
+        text-align: center;
+        width: 100%;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .dangerButton {
+        color: white;
+        background-color: rgb(143, 67, 67);
+      }
+    }
+  }
+}

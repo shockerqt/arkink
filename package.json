@@ -1,0 +1,47 @@
+{
+  "name": "arkink",
+  "version": "1.0.0",
+  "description": "Lost ark guild manager",
+  "main": "index.js",
+  "scripts": {
+    "build": "NODE_ENV=production webpack --config webpack.production.js",
+    "start": "webpack serve --open --config webpack.development.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shockerqt/arkink.git"
+  },
+  "author": "shocker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shockerqt/arkink/issues"
+  },
+  "homepage": "https://github.com/shockerqt/arkink#readme",
+  "devDependencies": {
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/react-router-dom": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "css-loader": "latest",
+    "eslint": "latest",
+    "eslint-plugin-jest-dom": "latest",
+    "html-webpack-plugin": "latest",
+    "node-sass": "latest",
+    "sass": "latest",
+    "sass-loader": "latest",
+    "style-loader": "latest",
+    "ts-loader": "latest",
+    "typescript": "latest",
+    "webpack": "latest",
+    "webpack-cli": "latest",
+    "webpack-dev-server": "latest"
+  },
+  "dependencies": {
+    "react": "latest",
+    "react-datasheet": "latest",
+    "react-dom": "latest",
+    "react-router-dom": "latest",
+    "web-vitals": "latest"
+  }
+}
