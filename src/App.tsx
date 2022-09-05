@@ -1,22 +1,22 @@
-import { lazy, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Route, Routes, useSearchParams } from 'react-router-dom';
 
 import Layout from './components/Layout';
-import { fetchUser, login } from './utils/api';
+import { fetchUser, login, User } from './utils/api';
 
-const Home = lazy(() => import(/* webpackChunkName: "home" */ './routes/Home'));
+const Roster = lazy(() => import('./components/Roster'));
+const Guild = lazy(() => import('./components/Guild'));
+const GuildSummary = lazy(() => import('./components/GuildSummary'));
+const GuildRaids = lazy(() => import('./components/GuildRaids'));
+const GuildTournaments = lazy(() => import('./components/GuildTournaments'));
+const GuildMembers = lazy(() => import('./components/GuildMembers'));
+const GuildSettings = lazy(() => import('./components/GuildSettings'));
 
-export interface User {
-  id: string;
-  username: string;
-  discriminator: string;
-  avatar: string;
-  banner: string;
-  locale: string;
-}
+type UserState = 'logged' |'not logged' | 'logging';
 
 const App = () => {
   const [user, setUser] = useState<User>();
+  const [fetchingUser, setFetchingUser] = useState<boolean>(true);
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const App = () => {
 
       login(code, (userData) => setUser(userData));
     } else if (!user) {
-      fetchUser((userData) => setUser(userData));
+      fetchUser((userData) => setUser(userData), () => setFetchingUser(false));
     }
 
   }, [searchParams]);
@@ -39,13 +39,45 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout user={user} setUser={setUser} />}>
 
-        <Route index element={<Home />} />
+        <Route index element={<></>} />
 
-        {/* <Route path="remedios" element={
-          <React.Suspense fallback={<>...</>}>
-            <Products section="remedies" constraints={constraints} />
-          </React.Suspense>
-        }/> */}
+        <Route path="roster" element={
+          <Suspense fallback={<>...</>}>
+            <Roster user={user} setUser={setUser} />
+          </Suspense>
+        }/>
+
+        <Route path="guild/:guildId" element={
+          <Suspense fallback={<>...</>}>
+            <Guild />
+          </Suspense>
+        }>
+          <Route path="raids" element={
+            <Suspense fallback={<>...</>}>
+              <GuildRaids />
+            </Suspense>
+          } />
+          <Route path="tournaments" element={
+            <Suspense fallback={<>...</>}>
+              <GuildTournaments />
+            </Suspense>
+          } />
+          <Route path="members" element={
+            <Suspense fallback={<>...</>}>
+              <GuildMembers />
+            </Suspense>
+          } />
+          <Route path="settings" element={
+            <Suspense fallback={<>...</>}>
+              <GuildSettings />
+            </Suspense>
+          } />
+          <Route index element={
+            <Suspense fallback={<>...</>}>
+              <GuildSummary />
+            </Suspense>
+          } />
+        </Route>
 
       </Route>
     </Routes>
