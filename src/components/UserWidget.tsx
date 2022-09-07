@@ -7,10 +7,7 @@ import { User } from '../utils/api';
 
 const baseUrl = 'https://cdn.discordapp.com/';
 
-const UserWidget = ({ user, setUser }: {
-  user: User | undefined,
-  setUser: React.Dispatch<React.SetStateAction<User | undefined>>,
-}) => {
+const UserWidget = ({ user }: { user: User | undefined }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(true);
   const widgetRef = useRef<HTMLDivElement>(null);

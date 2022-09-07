@@ -1,9 +1,8 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { Route, Routes, useSearchParams } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Layout from './components/Layout';
-import { useAlerts } from './utils/alert';
-import { fetchMyGuilds, fetchUser, User } from './utils/api';
+import { fetchUser, User } from './utils/api';
 
 const Roster = lazy(() => import('./components/Roster'));
 const Guild = lazy(() => import('./components/Guild'));
@@ -13,39 +12,22 @@ const GuildTournaments = lazy(() => import('./components/GuildTournaments'));
 const GuildMembers = lazy(() => import('./components/GuildMembers'));
 const GuildSettings = lazy(() => import('./components/GuildSettings'));
 
-type UserState = 'logged' |'not logged' | 'logging';
-
 const App = () => {
   const [user, setUser] = useState<User>();
-  const [fetchingUser, setFetchingUser] = useState<boolean>(true);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [alerts, addAlerts] = useAlerts();
-
-  const test = async () => {
-    fetchMyGuilds();
-  };
 
   useEffect(() => {
-    const code = searchParams.get('code');
-
-    if (code) {
-      const newSearchParams = new URLSearchParams(searchParams);
-      newSearchParams.delete('code');
-      setSearchParams(newSearchParams);
-
-      login(code, (userData) => setUser(userData));
-    } else if (!user) {
-      fetchUser((userData) => setUser(userData), () => setFetchingUser(false));
-    }
-
-    test();
-
-  }, [searchParams]);
+    fetchUser(async (response) => {
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData);
+      }
+    });
+  }, []);
 
 
   return (
     <Routes>
-      <Route path="/" element={<Layout user={user} setUser={setUser} />}>
+      <Route path="/" element={<Layout user={user} />}>
 
         <Route index element={<></>} />
 

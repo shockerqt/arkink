@@ -6,14 +6,9 @@ import Navbar from './Navbar';
 
 import UserWidget from './UserWidget';
 
-export const LayoutContext = createContext<{
-  addAlert: (message: string, type?: AlertType, time?: number) => void;
-}>({ addAlert: () => false });
+export const LayoutContext = createContext<{ addAlert: (message: string, type?: AlertType, time?: number) => void }>({ addAlert: () => false });
 
-const Layout = ({ user, setUser }: {
-  user: User | undefined,
-  setUser: React.Dispatch<React.SetStateAction<User | undefined>>,
- }) => {
+const Layout = ({ user }: { user: User | undefined }) => {
   const { alerts, addAlert } = useAlerts();
 
   return (
@@ -34,7 +29,7 @@ const Layout = ({ user, setUser }: {
           </button>
         </div>)}
 
-      <UserWidget user={user} setUser={setUser} />
+      <UserWidget user={user} />
 
       <div className="px-24 py-4">
         <Outlet />
