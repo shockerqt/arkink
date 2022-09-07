@@ -2,7 +2,8 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { Route, Routes, useSearchParams } from 'react-router-dom';
 
 import Layout from './components/Layout';
-import { fetchUser, login, User } from './utils/api';
+import { useAlerts } from './utils/alert';
+import { fetchMyGuilds, fetchUser, User } from './utils/api';
 
 const Roster = lazy(() => import('./components/Roster'));
 const Guild = lazy(() => import('./components/Guild'));
@@ -18,6 +19,11 @@ const App = () => {
   const [user, setUser] = useState<User>();
   const [fetchingUser, setFetchingUser] = useState<boolean>(true);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [alerts, addAlerts] = useAlerts();
+
+  const test = async () => {
+    fetchMyGuilds();
+  };
 
   useEffect(() => {
     const code = searchParams.get('code');
@@ -31,6 +37,8 @@ const App = () => {
     } else if (!user) {
       fetchUser((userData) => setUser(userData), () => setFetchingUser(false));
     }
+
+    test();
 
   }, [searchParams]);
 

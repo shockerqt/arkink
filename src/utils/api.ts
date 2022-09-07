@@ -8,8 +8,9 @@ export interface User {
 }
 
 export interface IGuild {
-  id: number;
-  guildname: string;
+  id: string;
+  name: string;
+  icon: string | null;
 }
 
 export const login = async (code: string, setUser: (user: User) => void) => {
@@ -54,38 +55,47 @@ export const fetchRoster = async () => {
   console.log(await response.json());
 };
 
-export const fetchGuilds = async (callback: (guilds: IGuild[]) => void) => {
-  const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/guild/all`, {
-    credentials: 'include',
-  });
-
-  const guilds = await response.json();
-  callback(guilds);
-};
-
-export const createGuild = async (guildname: string, callback: (guild: IGuild) => void) => {
-  const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/guild/add`, {
+export const registerGuild = async (guildId: string, callback: () => void) => {
+  const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/guild/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
-    body: JSON.stringify({ guildname }),
+    body: JSON.stringify({ guildId }),
   });
 
   if (response.ok) {
-    const guild = await response.json();
-    callback(guild);
+    callback();
   }
 };
 
-export const fetchGuild = async (guildId: number, callback: (guild: IGuild) => void) => {
+export const fetchGuild = async (guildId: string, callback: (guild: IGuild) => void) => {
   const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/guild/${guildId}`, {
     credentials: 'include',
   });
 
-  console.log('FETCH GUILD ');
   if (response.ok) {
     const guild = await response.json();
-    console.log('FETCH GUILD ', guild);
-    callback(guild);
+    console.log('FETCH GUILD ', guildId, guild);
+    if (callback) callback(guild);
   }
+};
+
+export const fetchMyGuilds = async (callback?: (response: Response) => void) => {
+  const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/user/guilds`, {
+    credentials: 'include',
+  });
+
+  console.log('LLAMADA A MY GUILDS');
+
+  if (callback) callback(response);
+};
+
+export const fetchMyUnregisteredGuilds = async (callback?: (response: Response) => void) => {
+  const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/user/guilds/unregistered`, {
+    credentials: 'include',
+  });
+
+  console.log('LLAMADA A MY UNREG GUILDS');
+
+  if (callback) callback(response);
 };

@@ -58,4 +58,8 @@ body {
     @apply block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300;
   }
 
+  .red-alert {
+    @apply p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800;
+  }
+
 }

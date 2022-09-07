@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-type AlertType = 'success' | 'danger';
+export type AlertType = 'success' | 'danger';
 
-interface Alert {
+export interface Alert {
   message: string;
   type: AlertType;
   dismiss: () => void;
@@ -11,9 +11,9 @@ interface Alert {
 export const useAlerts = () => {
   const [alerts, setAlerts] = useState<{ [id: number]: Alert }>({});
 
-  const addAlert = (message: string, type: AlertType = 'success', time = 5000) => {
+  const addAlert = (message: string, type: AlertType = 'success', time = 0) => {
     const id = Date.now();
-    let timeout: NodeJS.Timeout;
+    let timeout: number;
 
     const dismiss = () => {
       setAlerts((current) => {

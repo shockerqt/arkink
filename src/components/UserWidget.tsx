@@ -6,7 +6,6 @@ import DefaultAvatar from '../static/img/default_avatar.png';
 import { User } from '../utils/api';
 
 const baseUrl = 'https://cdn.discordapp.com/';
-const loginUrl = 'http://localhost:3001/api/auth';
 
 const UserWidget = ({ user, setUser }: {
   user: User | undefined,
@@ -15,16 +14,6 @@ const UserWidget = ({ user, setUser }: {
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(true);
   const widgetRef = useRef<HTMLDivElement>(null);
-
-
-  const logout = async () => {
-    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/logout`, {
-      method: 'DELETE',
-      credentials: 'include',
-    });
-
-    if (response.ok) setUser(undefined);
-  };
 
   const onMenuClick = () => {
     if (!isOpen) {
@@ -90,7 +79,13 @@ const UserWidget = ({ user, setUser }: {
             <Link to="roster" onClick={() => setHidden(true)} className="px-2 py-2 my-1 block btn btn-transparent text-start">Roster</Link>
             <Link to="/" onClick={() => setHidden(true)} className="px-2 py-2 my-1 block btn btn-transparent text-start">Settings</Link>
             <hr className="border-slate-700 mt-2" />
-            <button className="my-3 btn btn-danger w-full" onClick={logout}>Logout</button>
+            {/* <button className="my-3 btn btn-danger w-full" onClick={logout}>Logout</button> */}
+            <a
+              role="button"
+              href={`${import.meta.env.VITE_SERVER_URL}/auth/logout`}
+              className="my-3 btn btn-danger w-full block">
+              Logout
+            </a>
           </div>
         </div>
       }

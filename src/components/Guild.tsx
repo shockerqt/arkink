@@ -8,13 +8,13 @@ const Guild = () => {
   const [guild, setGuild] = useState<IGuild>();
 
   useEffect(() => {
-    if (guildId && !isNaN(parseInt(guildId))) fetchGuild(parseInt(guildId), (guild: IGuild) => setGuild(guild));
+    if (guildId) fetchGuild(guildId, (guild: IGuild) => setGuild(guild));
     else navigate('/');
   }, [guildId]);
 
   return (
     <>
-      <h1 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">{guild?.guildname}</h1>
+      <h1 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">{guild?.name}</h1>
       <div className="flex">
         <aside className="w-48" aria-label="Sidebar">
           <div className="w-48 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">

@@ -21,7 +21,7 @@ module.exports = {
       slate: colors.slate,
       gray: colors.gray,
       // zinc: colors.zinc,
-      // neutral: colors.neutral,
+      neutral: colors.neutral,
       // stone: colors.stone,
       red: colors.red,
       orange: colors.orange,
@@ -55,5 +55,9 @@ module.exports = {
       }
     }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/aspect-ratio'),
+  ],
 }
