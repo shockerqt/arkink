@@ -63,7 +63,7 @@ export const registerGuild = async (guildId: string, callback: () => void) => {
 };
 
 export const fetchGuild = async (guildId: string, callback: (response: Response) => void) => {
-  console.log('FETCH GUILD')
+  console.log('FETCH GUILD');
   try {
     const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/guild/${guildId}`, {
       credentials: 'include',

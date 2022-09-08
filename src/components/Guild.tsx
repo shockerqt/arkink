@@ -1,14 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { NavLink, Outlet, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import { fetchGuild, IGuild } from '../utils/api';
+import { LayoutContext } from './Layout';
 
 const Guild = () => {
   const { guildId } = useParams();
   const navigate = useNavigate();
   const [guild, setGuild] = useState<IGuild>();
+  const layoutContext = useContext(LayoutContext);
 
   useEffect(() => {
-    if (guildId) fetchGuild(guildId, (guild: IGuild) => setGuild(guild));
+    if (guildId) fetchGuild(guildId, async (response) => {
+      if (response.ok) {
+        const requestedGuild = await response.json();
+        console.log(requestedGuild);
+        setGuild(requestedGuild);
+      } else {
+        const error = await response.json();
+        console.log(error);
+        layoutContext.addAlert(`${error.message}${error.retry_after ? ` Retry after ${error.retry_after} seconds` : ''}`, 'danger');
+      }
+    });
     else navigate('/');
   }, [guildId]);
 
