@@ -4,8 +4,9 @@ import { fetchMyGuilds, IGuild, User } from '../utils/api';
 import { LayoutContext } from './Layout';
 import Modal from './Modal';
 
-const Navbar = ({ user }: {
+const Navbar = ({ user, className }: {
   user: User | undefined,
+  className?: string,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [guilds, setGuilds] = useState<IGuild[]>();
@@ -30,7 +31,7 @@ const Navbar = ({ user }: {
   }, [user]);
 
   return (
-    <nav className="absolute bg-gray-900 left-0 w-16 h-full">
+    <nav className={`bg-gray-900 ${className}`}>
       <div className="flex flex-col items-center h-full w-full py-4 space-y-3">
         {guilds?.map((guild: IGuild) =>
           <NavLink key={guild.id} to={`/guild/${guild.id}`} title={guild.name} className={({ isActive }) => `btn overflow-hidden btn-outline border-none rounded-full w-12 h-12 p-0 text-xl grid place-items-center${isActive ? ' ring-4 ring-gray-600' : ''}`}>

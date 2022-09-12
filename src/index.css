@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -16,6 +16,14 @@ body {
 
 #root {
   @apply h-full;
+}
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 
@@ -49,7 +57,7 @@ body {
   }
 
   .input {
-    @apply block w-full p-2.5 focus:outline-none focus:ring-1 text-sm rounded-lg;
+    @apply block w-full p-2.5 focus:outline-none focus:ring-1 text-sm rounded;
     @apply bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500;
     @apply dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
   }
