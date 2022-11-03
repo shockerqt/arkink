@@ -30,8 +30,7 @@ const Guild = () => {
         <div className="p-5">
           <h1 className="font-medium">{guild.name.length > 15 ? `${guild.name.substring(0, 15)}...` : guild.name}</h1>
         </div>
-        <div className="p-5 overflow-y-scroll grow">
-
+        <div className="p-5 overflow-y-auto grow">
         </div>
       </menu>
       <main>

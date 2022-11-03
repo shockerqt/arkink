@@ -34,9 +34,9 @@ const Navbar = ({ user, className }: {
     <nav className={`bg-gray-900 ${className}`}>
       <div className="flex flex-col items-center h-full w-full py-4 space-y-3">
         {guilds?.map((guild: IGuild) =>
-          <NavLink key={guild.id} to={`/guild/${guild.id}`} title={guild.name} className={({ isActive }) => `btn overflow-hidden btn-outline border-none rounded-full w-12 h-12 p-0 text-xl grid place-items-center${isActive ? ' ring-4 ring-gray-600' : ''}`}>
+          <NavLink data-text={guild.name} key={guild.id} to={`/guild/${guild.id}`} title={guild.name} className={({ isActive }) => `btn tooltip btn-outline border-none rounded-full w-12 h-12 p-0 text-xl grid place-items-center${isActive ? ' ring-4 ring-gray-600' : ''}`}>
             {guild.icon
-              ? <img src={`${import.meta.env.VITE_DISCORD_IMAGE_BASE_URL}/icons/${guild.id}/${guild.icon}.png?size=48`} alt="Discord Photo" />
+              ? <img src={`${import.meta.env.VITE_DISCORD_IMAGE_BASE_URL}/icons/${guild.id}/${guild.icon}.png?size=48`} alt="Discord Photo" className="rounded-full" />
               : guild.name[0]}
           </NavLink>)}
         <button className="btn btn-outline border-none rounded-full w-12 h-12 p-0 text-xl" onClick={() => setShowModal(true)}>+</button>
